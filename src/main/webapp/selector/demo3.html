@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="resources/js/jquery.min.js"></script>
+</head>
+<body>
+	<h1>선택자 연습</h1>
+	
+	<div>
+		<p>연습111111입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+		<p>연습122222입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+		<p>연습133333입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+		<p>연습144444입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+	</div>
+	<div>
+		<p>연습211111입니다. 연습2입니다. 연습2입니다. 연습2입니다.</p>
+		<p>연습222222입니다. 연습2입니다. 연습2입니다. 연습2입니다.</p>
+		<p>연습333333입니다. 연습2입니다. 연습2입니다. 연습2입니다.</p>
+		<p>연습244444입니다. 연습2입니다. 연습2입니다. 연습2입니다.</p>
+		
+	</div>
+	<div>
+		<p>연습3입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+		<p>연습311111입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+		<p>연습322222입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+		<p>연습333333입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+	</div>
+</body>
+<script type="text/javascript">
+$(function() {
+	$("p:first").css('color', 'red');
+	$("p:first-child").css('background-color', 'lightgreen');
+	$("p:nth-child(2)").css('background-color', 'yellow');
+});
+</script>
+</html>

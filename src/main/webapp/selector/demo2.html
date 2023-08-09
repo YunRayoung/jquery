@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="resources/js/jquery.min.js"></script>
+<style type="text/css">
+	div {border: 1px solid black;
+		 padding: 10px;
+		 margin: 10px;}
+</style>
+</head>
+<body>
+	<h1>선택자 연습</h1>
+	
+	<div id="box-1">
+		<p>연습111111입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+		<p>연습122222입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+		<p>연습133333입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+		<p>연습144444입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+	</div>
+	<div id="box-2">
+		<p>연습211111입니다. 연습2입니다. 연습2입니다. 연습2입니다.</p>
+		<p>연습222222입니다. 연습2입니다. 연습2입니다. 연습2입니다.</p>
+		<p>연습333333입니다. 연습2입니다. 연습2입니다. 연습2입니다.</p>
+		<p>연습244444입니다. 연습2입니다. 연습2입니다. 연습2입니다.</p>
+		
+	</div>
+	<div id="box-3">
+		<p>연습3입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+		<p>연습311111입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+		<p>연습322222입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+		<p>연습333333입니다. 연습1입니다. 연습1입니다. 연습1입니다.</p>
+	</div>
+</body>
+<script type="text/javascript">
+$(function() {
+	// box-1의 첫번째 p의 색을 변경하자
+	$("#box-1 p:first").css("color", 'red');
+	$("#box-1 p:first-child").css("color", 'red');
+	$("#box-1 p:nth-child(1)").css("color", 'red');
+	$("#box-1 p:eq(0)").css("color", 'red');
+	
+	// box-2의 두번째 p의ㅐ 내용을 변경하자
+	   
+	// box-3의 맨 마지막번째 p의 내용을 바꾸자
+});
+</script>
+</html>

@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<title>파티홈입니다.</title>
+<link rel="stylesheet" href="style/reset.css">
+<link rel="stylesheet" href="style/nav.css">
+<link rel="stylesheet" href="style/left.css">
+<link rel="stylesheet" href="style/right.css">
+<link rel="stylesheet" href="style/event.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/46a6014d50.js" crossorigin="anonymous"></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src='fullcalendar-6.1.8/packages/core/locals/ko.global.min.js'></script>
+<!-- Full calendar -->
+<script>
+
+   //   document.addEventListener('DOMContentLoaded', function() {
+	   $(document).ready(function() {
+		var Calendar = FullCalendar.Calendar;
+		var Draggable = FullCalendar.Draggable;   
+	   
+		var containerEl = document.getElementById('external-events');
+		var calendarEl = document.getElementById('calendar');
+		var checkbox = document.getElementById('drop-remove');
+		
+		// 외부이벤트 초기화
+		new Draggable(containerEl, {
+		     itemSelector: '.fc-event',
+		     eventData: function(eventEl) {
+		        return {
+		          title: eventEl.innerText
+		        };
+		     }
+		});
+		 var calendar = new Calendar(calendarEl, {
+			  customButtons: {
+				    myCustomButton: {
+				      text: '일정 만들기',
+				      click: function() {
+				        $("#eventModal").modal("show");
+				        
+				        $("#addEvent").on("click", function(){
+				        	var content = $("event_content").val();
+				        	var start_date = $("event_start_date").val();
+				        	var end_date = $("event_end_date").val();
+				        	var end_time = $("event_start_time").val();
+				        	var end_time = $("event_end_time").val();
+				        	
+				        if(content == null || content == ""){
+				        	alert("내용을 입력하세요.");	
+				        }else if(start_date == null || start_date == ""){
+				        	alert("시작날짜를 입력하세요.");	
+				        }else if(end_date == null || end_date == ""){
+				        	alert("종료날짜를 입력하세요.");	
+				        }else{
+				        	var obj = {
+				        		"title" : content,
+				        		"start" : start_date,
+				        		"end" : end_date,
+				        		"start_time" : start_time,
+				        		"end_time" : end_time
+				        	}
+				        	
+				        	console.log(obj);
+				        }
+				        
+				        })
+				      }
+				    }
+				  },
+		      // 원하는 지정 날짜에 일정등록하기
+		      dateClick: function() {
+		          text: '일정 만들기',
+
+			        $("#eventModal").modal("show");
+			        
+			        $("#addEvent").on("click", function(){
+			        	var content = $("event_content").val();
+			        	var start_date = $("event_start_date").val();
+			        	var end_date = $("event_end_date").val();
+			        	var end_time = $("event_start_time").val();
+			        	var end_time = $("event_end_time").val();
+	    	   // alert('Clicked on: ' + info.dateStr);
+	    	   // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+	    	   // alert('Current view: ' + info.view.type);
+	    	    // change the day's background color just for fun
+	    	    //info.dayEl.style.backgroundColor = 'pink';
+			        })
+	    	  },
+		      headerToolbar: {
+		        left: 'prev,next,today',
+		        center: 'title',
+		        right:'myCustomButton'
+		        //right: 'dayGridMonth,timeGridWeek,timeGridDay'
+		      },
+		      // 수정가능여부
+		      editable: true,
+		      // 드래그 허용
+		      droppable: true, 
+		      displayEventTime: false,
+		      drop: function(info) {
+		        // 드래그 후 제거 허용
+		        if (checkbox.checked) {
+		          // 드래그 가능한 이벤트를 목록에서 제거
+		          info.draggedEl.parentNode.removeChild(info.draggedEl);
+		      
+		        }
+		      },
+		      
+		      locale:"ko"
+		    });
+
+		    calendar.render();
+		  });
+	   
+//        var calendar = new FullCalendar.Calendar(calendarEl, {
+//          initialView: 'dayGridMonth',
+//          locale:"ko"
+//        });
+//        calendar.render();
+//      });
+
+</script>
+<style>
+    footer {
+        background-color: #eee;
+    }
+</style>
+<style>
+    .layout {
+        --bs-gutter-x: 1.5rem;
+        --bs-gutter-y: 0;
+        width: 90%;
+        padding-right: calc(var(--bs-gutter-x) * .5);
+        padding-left: calc(var(--bs-gutter-x) * .5);
+        margin-right: auto;
+        margin-left: auto;
+        display: flex;
+        gap: 3%;
+    }
+    .left {
+        width: 20%;
+    }
+    .right {
+        width: 20%;
+    }
+    .content {
+        width: 54%;
+        /* background-color: aquamarine; */
+    }
+    .logo a, .logo a:hover, .setting-box a, .button a, .chat-item a, .noti-container a, .message-container a{
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-sm">
+        <div class="container fixed">
+            <div class="container">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a href="" class="nav-link"><i class="fa-solid fa-house"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">렛츠 파티!!</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">파티 리스트</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="container">
+                <ul class="navbar-nav me-auto justify-content-center">
+                    <h1 class="fs-1 text-center logo"><span id="home" class="align-middle"><a href="">로고</a></span></h1>
+                    <li class="nav-item ms-3">
+                        <div class="form mt-3">
+                            <form method="get" action="/party/search.jsp" name="searchParty">
+                                <div class="inputbox">
+                                    <input type="text" placeholder="파티검색" name="value">
+                                    <div class="search" id="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </div>
+                                </div>
+                               </form>
+                        </div>
+                        </li>
+                </ul>
+            </div>
+            <div class="container">
+                <ul class="navbar-nav justify-content-end">
+                    <li class="nav-item">
+                        <a href="/login-form.jsp" class="nav-link">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/user/form.jsp" class="nav-link">회원가입</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav justify-content-end">
+                    <li class="nav-item me-3">
+                        <a href="#" class="nav-link noti noti-outside">
+                            <i class="fa-solid fa-bell noti" id="bell"></i>
+                        </a>
+                        <div class="news-container none">
+                            <div class="arrow"></div>
+                            <div class="title">새소식</div>
+                            <div class="news-items">
+                                <ul>
+                                    <li class="news-item">
+                                        <a href="">
+                                            <div class="img-container">
+                                                <img src="/img/sooyeong1.jpeg" alt="">
+                                            </div>
+                                            <div class="news-info">
+                                                <div class="type">공지</div>
+                                                <div class="content">새 공지가 등록되었습니다</div>
+                                                <div class="time"><span>홍길동파티</span> &#183 <span>21시간전</span></div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="news-item">
+                                        <a href="">
+                                            <div class="img-container">
+                                                <img src="/img/sample.png" alt="">
+                                            </div>
+                                            <div class="news-info">
+                                                <div class="type">댓글</div>
+                                                <div class="content">내 게시글에 댓글이 달렸습니다.</div>
+                                                <div class="time"><span>강감찬파티</span> &#183 <span>21시간전</span></div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="news-item">
+                                        <a href="">
+                                            <div class="img-container">
+                                                <img src="/img/sooyeong1.jpeg" alt="">
+                                            </div>
+                                            <div class="news-info">
+                                                <div class="type">가입</div>
+                                                <div class="content"><span>홍길동파티</span>파티에 가입되었습니다.</div>
+                                                <div class="time"><span>홍길동파티</span> &#183 <span>21시간전</span></div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="news-item">
+                                        <a href="">
+                                            <div class="img-container">
+                                                <img src="/img/sooyeong2.jpeg" alt="">
+                                            </div>
+                                            <div class="news-info">
+                                                <div class="type">강퇴</div>
+                                                <div class="content">강퇴당하셨습니다.</div>
+                                                <div class="time"><span>이승규파티</span> &#183 <span>21시간전</span></div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="news-item">
+                                        <a href="">
+                                            <div class="img-container">
+                                                <img src="/img/sooyeong1.jpeg" alt="">
+                                            </div>
+                                            <div class="news-info">
+                                                <div class="type">일정</div>
+                                                <div class="content">일정이 등록되었습니다.</div>
+                                                <div class="time"><span>홍길동파티</span> &#183 <span>21시간전</span></div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a href="#" class="nav-link noti noti-outside">
+                            <i class="fa-solid fa-message noti" id="message"></i>
+                        </a>
+                        <div class="message-container none">
+                            <div class="arrow"></div>
+                            <div class="title">메세지</div>
+                            <div class="message-items">
+                                <ul>
+                                    <li class="message-item">
+                                        <a href="">
+                                            <div class="img-container">
+                                                <img src="/img/sooyeong1.jpeg" alt="">
+                                            </div>
+                                            <div class="message-info">
+                                                <div class="name">수영</div>
+                                                <div class="content">언제와??</div>
+                                                <div class="time"><span>홍길동파티</span></div>
+                                            </div>
+                                            <div class="message-noread">
+                                                <span>8</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="message-item">
+                                        <a href="">
+                                            <div class="img-container">
+                                                <img src="/img/sooyeong3.jpeg" alt="">
+                                            </div>
+                                            <div class="message-info">
+                                                <div class="name">감찬</div>
+                                                <div class="content">내일 잊지 않았지?</div>
+                                                <div class="time"><span>강감찬파티</span></div>
+                                            </div>
+                                            <div class="message-noread">
+                                                <span>14</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="message-item">
+                                        <a href="">
+                                            <div class="img-container">
+                                                <img src="/img/sooyeong3.jpeg" alt="">
+                                            </div>
+                                            <div class="message-info">
+                                                <div class="name">김도박</div>
+                                                <div class="content">총알 몇 발 가지고 와?</div>
+                                                <div class="time"><span>김도박의 재태크</span></div>
+                                            </div>
+                                            <!-- <div class="message-noread">
+                                                <span>1</span>
+                                            </div> -->
+                                        </a>
+                                    </li>
+                                    <li class="message-item">
+                                        <a href="">
+                                            <div class="img-container">
+                                                <img src="/img/sooyeong2.jpeg" alt="">
+                                            </div>
+                                            <div class="message-info">
+                                                <div class="name">관순</div>
+                                                <div class="content">축구화 챙기세요</div>
+                                                <div class="time"><span>유관순파티</span></div>
+                                            </div>
+                                            <div class="message-noread">
+                                                <span>30</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="message-item">
+                                        <a href="">
+                                            <div class="img-container">
+                                                <img src="/img/sample.png" alt="">
+                                            </div>
+                                            <div class="message-info">
+                                                <div class="name">웰시코기</div>
+                                                <div class="content">멍멍멍</div>
+                                                <div class="time"><span>강감찬파티</span></div>
+                                            </div>
+                                            <div class="message-noread">
+                                                <span>30</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="message-item">
+                                        <a href="">
+                                            <div class="img-container">
+                                                <img src="/img/sooyeong3.jpeg" alt="">
+                                            </div>
+                                            <div class="message-info">
+                                                <div class="name">박찬호</div>
+                                                <div class="content">메세지 하니까 제가 LA에 있을 때 생각나는데요, 당시에 메세지는</div>
+                                                <div class="time"><span>TMI파티</span></div>
+                                            </div>
+                                            <div class="message-noread">
+                                                <span>172</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        MY
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                        <li><span class="align-middle bolder ms-3"><strong class="text-black">홍길동 님</strong></span></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a href="/user/detail.jsp" class="dropdown-item">내정보보기</a></li>
+                            <li><a href="/party/manage-my-party.jsp" class="dropdown-item">내파티관리</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a href="/logout.jsp" class="dropdown-item">로그아웃</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="blank mb-3">
+    </div>
+    <nav class="navbar fixed-top navbar-expand-sm">
+        <div class="container justify-content-center">
+            <ul class="navbar-nav nav2">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">게시판</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">첨부</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">일정</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">멤버</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="blank-1 mb-3">
+    </div>
+
+    <script>
+        $(".noti-outside").click(function(){
+            close($(this).parent().siblings().children("div"));
+            if (!$(this).children().hasClass("click")) {
+                $(".noti-outside").children().removeClass("click");
+                $(this).children().addClass("click");
+                open($(this).next());
+            } else {
+                $(".noti-outside").children().removeClass("click");
+                close($(this).next());
+            }
+        })
+        let close = function(el) {
+            el.removeClass("block").addClass("none");
+        }
+        let open = function(el) {
+            el.removeClass("none").addClass("block");
+        }
+
+        $('html').click(function(e) {   
+            if(!$(e.target).hasClass("noti")) {
+                close($(".news-container"));
+                close($(".message-container"));
+                $(".noti-outside").children("i").removeClass("click");
+            }
+        });    
+
+        // $(':not(.xxx)').click(function(event) {
+        //     console.log(this)
+        //     // event.stopImmediatePropagation();
+        // });
+    </script>
+
+    <div class="layout">
+        <aside class="left">
+            <div class="img">
+                <img src="/img/sample.png" alt="">
+            </div>
+            <div class="info-box">
+                <div class="info">
+                    <div class="name">   
+                        <span>파티명</span>
+                    </div>
+                    <div class="mem">
+                        <p>멤버수 &#183 <span>10</span>명 &nbsp; 리더 &#183 <span>홍길동</span></p>
+                    </div>
+                </div>
+                <div class="button">
+                    <a href=""><div class="text">글쓰기 / 파티가입하기</div></a>
+                </div>
+                <div class="setting">
+                    <div class="setting-box">
+                        <a href=""><img src="/img/settings.png" alt="">파티 설정하기</a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div class="content">
+        <div id="calendar"></div>
+			 <!-- 일정등록 Modal -->
+		    <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		        aria-hidden="true">
+		        <div class="modal-dialog" role="document">
+		            <div class="modal-content">
+		                <div class="modal-header">
+		                    <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
+		                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                        <span aria-hidden="true">&times;</span>
+		                    </button>
+		                </div>
+		                <div class="modal-body">
+		                    <div class="form-group">
+		                        <label for="taskId" class="col-form-label">일정 제목</label>
+		                        <input type="text" class="form-control" id="event_content" name="event_title">
+		                        <label for="taskId" class="col-form-label">일정 내용</label>
+		                        <input type="text" class="form-control" id="event_content" name="event_content">
+		                        <label for="taskId" class="col-form-label">시작 날짜</label>
+		                        <input type="date" class="form-control" id="event_start_date" name="event_start_date">
+		                        <label for="taskId" class="col-form-label">종료 날짜</label>
+		                        <input type="date" class="form-control" id="event_end_date" name="event_end_date">
+		                        <label for="taskId" class="col-form-label">시작 시간</label>
+		                        <input type="time" class="form-control" id="event_start_time" name="event_start_time">
+		                        <label for="taskId" class="col-form-label">종료 시간</label>
+		                        <input type="time" class="form-control" id="event_end_time" name="event_end_time">
+		                        <label for="taskId" class="col-form-label">하루 종일</label>
+		                        <input type="checkbox" name="option" value="event_all_day" >
+		                        <label for="taskId" class="col-form-label">음력</label>
+		                        <input type="checkbox" name="option" value="lunar_calendar" ><br/>
+		                        <label for="taskId" class="col-form-label">장소</label>
+		                        <input type="text" class="form-control" id="evnet_palce" name="evnet_palce">
+		                        <label for="taskId" class="col-form-label">미리 알림</label>
+		                        <input type="text" class="form-control" id="evnet_" name="evnet_">
+		                        <label for="taskId" class="col-form-label">게시글로 공유</label>
+		                        <input type="checkbox" name="option" value="submit_post" >
+		                    </div>
+		                </div>
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+		                        id="SettingModalClose">취소</button>
+		                    <button type="button" class="btn btn-primary" id="addEvent">등록</button>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+        	<div id='external-events'>
+			    <p>
+			      <strong>원하는 날짜에 일정을 옮겨 등록하세요.</strong>
+			    </p>
+			
+			    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+			   		  <div class='fc-event-main'>국어</div>
+			    </div>
+			    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+			     	 <div class='fc-event-main'>수학</div>
+			    </div>
+			    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+			    	  <div class='fc-event-main'>영어</div>
+			    </div>
+			    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+			     	 <div class='fc-event-main'>체육</div>
+			    </div>
+			    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+			    	  <div class='fc-event-main'>음악</div>
+			    </div>
+				
+			    <p>
+			      <input type='checkbox' id='drop-remove' />
+			      <label for='drop-remove'>일정 등록 후 제거하기</label>
+			    </p>
+			    <div class="box1">일정1</div>
+			    <div class="box1">일정2</div>
+			 </div>
+       	 </div>
+       	 
+        <aside class="right">
+            <div class="chat-container">
+                <div class="title">
+                    채팅
+                </div>
+                <hr>
+                <div class="chat-list">
+                    <ul>
+                        <li class="chat-item">
+                            <a href="">
+                                <div class="img-container">
+                                    <img src="/img/sample.png" alt="">
+                                </div>
+                                <div class="chat-info">
+                                    <div class="name">웰시코기</div>
+                                    <div class="message">월월!!</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="chat-item">
+                            <a href="">
+                                <div class="img-container"><img src="/img/sooyeong1.jpeg" alt=""></div>
+                                <div class="chat-info">
+                                    <div class="name">수영</div>
+                                    <div class="message">오늘은 자유영</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="chat-item">
+                            <a href="">
+                                <div class="img-container"><img src="/img/sooyeong3.jpeg" alt=""></div>
+                                <div class="chat-info">
+                                    <div class="name">수영2</div>
+                                    <div class="message">내일은 배영</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="chat-item">
+                            <a href="">
+                                <div class="img-container"><img src="/img/sooyeong1.jpeg" alt=""></div>
+                                <div class="chat-info">
+                                    <div class="name">수영3</div>
+                                    <div class="message">어제는 평영</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="chat-item">
+                            <a href="">
+                                <div class="img-container"><img src="/img/sooyeong3.jpeg" alt=""></div>
+                                <div class="chat-info">
+                                    <div class="name">수영4</div>
+                                    <div class="message">저는 말이 많습니다. 말줄임표가 적용되나요?
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="chat-item">
+                            <a href="">
+                                <div class="img-container"><img src="/img/sooyeong3.jpeg" alt=""></div>
+                                <div class="chat-info">
+                                    <div class="name">수영4</div>
+                                    <div class="message">저는 말이 많습니다. 말줄임표가 적용되나요?
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="chat-item">
+                            <a href="">
+                                <div class="img-container"><img src="/img/sooyeong3.jpeg" alt=""></div>
+                                <div class="chat-info">
+                                    <div class="name">수영4</div>
+                                    <div class="message">저는 말이 많습니다. 말줄임표가 적용되나요?
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="calender-container">
+                <div class="title">
+                    다가오는 일정
+                    <a href="">더보기</a>
+                </div>
+                <hr>
+                <div class="calender-list">
+                    <ul>
+                        <li class="calender-item">
+                            <div class="schedule">
+                                <div class="month">
+                                    8
+                                </div>
+                                <hr>
+                                <div class="day">
+                                    10
+                                </div>
+                            </div>
+                            <a href="">
+                                <div class="info">
+                                    <div class="time">
+                                        오전 9:57
+                                    </div>
+                                    <div class="title">
+                                        마감입니다.
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="calender-item">
+                            <div class="schedule">
+                                <div class="month">
+                                    8
+                                </div>
+                                <hr>
+                                <div class="day">
+                                    10
+                                </div>
+                            </div>
+                            <a href="">
+                                <div class="info">
+                                    <div class="time">
+                                        오전 9:57
+                                    </div>
+                                    <div class="title">
+                                        마감입니다.
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="calender-item">
+                            <div class="schedule">
+                                <div class="month">
+                                    8
+                                </div>
+                                <hr>
+                                <div class="day">
+                                    10
+                                </div>
+                            </div>
+                            <a href="">
+                                <div class="info">
+                                    <div class="time">
+                                        오전 9:57
+                                    </div>
+                                    <div class="title">
+                                        마감입니다.
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="calender-item">
+                            <div class="schedule">
+                                <div class="month">
+                                    8
+                                </div>
+                                <hr>
+                                <div class="day">
+                                    10
+                                </div>
+                            </div>
+                            <a href="">
+                                <div class="info">
+                                    <div class="time">
+                                        오전 9:57
+                                    </div>
+                                    <div class="title">
+                                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic, eveniet minus. Veniam, non officiis dolorum labore architecto et sequi, consectetur voluptatum quaerat odit nihil laboriosam nam corporis quae optio illo?
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="calender-item">
+                            <div class="schedule">
+                                <div class="month">
+                                    8
+                                </div>
+                                <hr>
+                                <div class="day">
+                                    10
+                                </div>
+                            </div>
+                            <a href="">
+                                <div class="info">
+                                    <div class="time">
+                                        오전 9:57
+                                    </div>
+                                    <div class="title">
+                                        마감입니다.
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+</body>

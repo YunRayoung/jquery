@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="resources/js/jquery.min.js"></script>
+</head>
+<body>
+   <h1>Welcome to My Homepage</h1>
+   <div class="intro">
+      <p>My name is Donald <span id="Lastname">Duck</span></p>
+      <p id="my-Address">I live in Duckburg</p>
+      <p class="friends">I love friends</p>
+      <p class="friends">I love friends</p>
+      <p class="friends">I love friends</p>
+      <p class="friends">I love friends</p>
+      <p>I have many friends:</p>
+   </div>
+
+   <ul id="Listfriends">
+      <li>Goofy</li>
+      <li>Mickey</li>
+      <li>Daisy</li>
+      <li>Pluto</li>
+   </ul>
+
+   <p>I really like Daisy!!</p>
+   <p lang="it" title="Hello beautiful">Ciao bella</p>
+
+   <h3>We are all animals!</h3>
+   <p><b>My latest discoveries has led me to believe that we are all animals:</b></p>
+
+<script type="text/javascript">
+$(function() {
+	// function 안에 넣으면 브라우저 실행될때 자동으로 실행됨.
+	// 태그명으로 선택하기
+	$('h1').css('color', 'red');
+	$('p').css('color', 'lightgreen');	// 묵시적 반복저치, 모든 p엘리먼트 검색해서 컨텐츠 색을 변경
+	
+	// 아이디로 선택하기(#검색)
+	$("#my-Address").css('border', '2px solid red');
+	
+	// 클래스로 선택하기
+	$(".friends").css("background-color", 'lightgray');
+	
+	$("h1, h2, h3").css("border", "2px solid blue");
+})
+</script>
+</body>
+</html>
